@@ -1,8 +1,48 @@
 version: "3"
 services:
-  backend:
+  opendata_api:
     build: ./api
     ports:
       - "8080:8080"
     volumes:
       - ./api:/go/src/api
+
+  opendata_db_master:
+    env_file: ./strage/master/.env
+    build: ./strage/master
+    container_name: opendata_db_master
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: opendata
+      MYSQL_USER: opendata
+      MYSQL_PASSWORD: opendata
+    privileged: true
+    networks:
+      opendata_network:
+        ipv4_address: 172.50.0.2
+
+  opendata_db_slave:
+    env_file: ./strage/slave/.env
+    build: ./strage/slave
+    container_name: opendata_db_slave
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: opendata
+      MYSQL_USER: opendata
+      MYSQL_PASSWORD: opendata
+    depends_on:
+      - opendata_db_master
+    privileged: true
+    networks:
+      opendata_network:
+        ipv4_address: 172.50.0.3
+
+networks:
+  opendata_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.50.0.0/24
