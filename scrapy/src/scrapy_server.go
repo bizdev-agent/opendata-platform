@@ -1,4 +1,4 @@
-package main
+package scrapy
 
 import (
 	"encoding/json"
