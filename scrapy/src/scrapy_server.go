@@ -1,4 +1,4 @@
-package main
+package scrapy
 
 import (
 	"encoding/json"
@@ -14,7 +14,7 @@ type pageInfo struct {
 	Links      map[string]int
 }
 
-func main() {
+func FetchUrl() {
 	// example usage: curl -s 'http://127.0.0.1:7171/?url=http://go-colly.org/'
 	http.HandleFunc("/", handler)
 

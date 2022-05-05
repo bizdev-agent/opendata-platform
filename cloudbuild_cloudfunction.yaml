@@ -5,5 +5,5 @@ steps:
     args: ['clone','--single-branch','--branch','${_GIT_SOURCE_BRANCH}','${_GIT_SOURCE_URL}']
 
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['functions','deploy','scrapy','--trigger-http','--runtime','go116','--entry-point','GetJSONData', '--project','$PROJECT_ID','--memory','2048']
+    args: ['functions','deploy','scrapy','--trigger-http','--runtime','go116','--entry-point','FetchUrl', '--project','$PROJECT_ID','--memory','2048']
     dir: 'opendata-platform/scrapy/src'
