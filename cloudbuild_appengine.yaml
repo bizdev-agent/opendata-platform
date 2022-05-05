@@ -4,6 +4,10 @@ steps:
     # clone the specified source to preform the build.
     args: ['clone','--single-branch','--branch','${_GIT_SOURCE_BRANCH}','${_GIT_SOURCE_URL}']
 
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: 'gcr.io/cloud-builders/gcloud/scrapy'
     args: ['app','deploy','app.yaml','--project','$PROJECT_ID']
     dir: 'opendata-platform/scrapy/src'
+
+  - name: 'gcr.io/cloud-builders/gcloud/application'
+    args: ['app','deploy','app.yaml','--project','$PROJECT_ID']
+    dir: 'opendata-platform/application/src'

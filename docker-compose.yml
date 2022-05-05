@@ -1,11 +1,11 @@
 version: "3"
 services:
   opendata_api:
-    build: ./api
+    build: application
     ports:
       - "8080:8080"
     volumes:
-      - ./api:/go/src/api
+      - ./application:/go/src/application
 
   opendata_db_master:
     env_file: ./strage/master/.env
